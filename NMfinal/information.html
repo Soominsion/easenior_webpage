@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보 블로그</title>
+    <style>
+        .navbar {
+            background-color: #f1f1f1;
+            padding: 30px 0px;
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: space-evenly;
+            position: relative;
+            border-top: 5px solid orange;
+            border-bottom: 1.5px solid orange;
+        }
+
+        .menu {
+            list-style-type: none;
+            overflow: hidden;         
+            justify-content: space-evenly;
+            width: 100%;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu li {
+            flex: 1;
+        }
+
+        .menu a {
+            display: block;
+            color: #181818;
+            font-size: 30px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            padding: 15px; /* 각 메뉴 항목의 패딩을 조절 */
+        }
+
+        .menu a:hover {
+            background-color: #ddd;
+            color: orange;
+        }
+
+        .submenu-container {
+            display: inline-block;
+        }
+
+        .submenu-content {
+            display: none;
+            position: absolute;
+            width: 17.5%;
+            background-color: #f9f9f9;
+            z-index: 1;
+        }
+        .submenu-content a{
+            color: #333;
+            font-weight: 400;
+        }
+        
+        .submenu-container:hover .submenu-content {
+            display: block;
+        }
+        
+        .space{
+            width:15vw;
+            background-color: #f1f1f1;
+        }
+        
+
+        /*내용 바*/
+        #section_container {
+            width:70%;
+            height: max-content;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .info_section {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #section1 { background-color: #6f8b9e; }
+        #section2 { background-color: #a8cde6; }
+        #section3 { background-color: #a8cde6;}
+
+
+
+        
+        
+        /* Additional styles for the information page */
+        #blog_container {
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .blog_post {
+            width: 60%;
+            margin: 30px;
+            margin-bottom: 70px;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 제목 */
+        .blog_post h2 {
+            color: #333;
+            font-weight: bold;
+            padding-bottom: 20px;         
+        }
+
+        .blog_post p {
+            color: #555;
+        }
+        .contents{
+            padding: 20px;
+            margin: 20px;
+        }
+
+
+        .other_posts {
+            margin-top: 30px;
+            width: 60%;
+            margin: 30px;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .other_posts h2 {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .post_grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .post_item {
+            flex: 0 1 calc(100% - 20px); /* Adjust the width as needed */
+            padding: 15px;
+
+        }
+
+        .post_item a {
+            color: #007bff; /* Link color */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .post_item a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="menu">
+            <a href="main.html"><image src="assets\logo.png" width="200px"></image></a> 
+            <li class="submenu-container"><a href="#">알림 마당</a>
+                <div class="submenu-content">
+                    <a href="information.html">오늘의 정보</a>
+                    <a href="#">일자리 정보</a>
+                    <a href="#">새로운 취미</a>
+                </div>
+            </li>
+
+            <li class="submenu-container"><a href="#">의료 시설</a>
+                <div class="submenu-content">
+                    <a href="medical.html">주변 의료시설</a>
+                    <a href="#">치매 예방법</a>
+                    <a href="#">자가 진단</a>
+                </div>
+            </li>
+            
+            <li class="submenu-container"><a href="#">온라인 예매</a>
+                <div class="submenu-content">
+                    <a href="reservation.html">기차표 예약</a>
+                    <a href="#">음식점 예약</a>
+                    <a href="#">스포츠 예약</a>
+                    <a href="#">콘서트 예약</a>
+                </div>
+            </li>
+            <li class="submenu-container"><a href="#">동네 소식</a>
+                <div class="submenu-content">
+                    <a href="#">중고나라</a>
+                    <a href="#">재능기부</a>
+                </div>
+            </li>
+            <div class="space"></div>
+        </ul>
+    </div>
+ 
+    <!-- Content Section -->
+    <section>
+        <div id="blog_container">
+            
+            <div id="section_container">
+                <div class="info_section" id="section1">오늘의 정보</div>
+                <div class="info_section" id="section2">일자리 정보</div>
+                <div class="info_section" id="section3">새로운 취미</div>
+            </div>
+
+            <div class="blog_post">
+                <h2> [2023 추석 명절 SRT 승차권 예매 전용 홈페이지 신설개설]</h2>
+                <image src="assets\srt.png" >
+                <div class="contents">
+                    <p>
+                    【투데이신문 박나래 기자】 
+                    <br>SRT 운영사 국민철도 에스알(SR, 대표이사 이종국)은 내일부터 사흘 동안 2023년 추석 명절 SRT 승차권 예매를 운영한다고 4일 밝혔다.
+
+                    올해 추석 명절 연휴가 시작되는 이달 27일부터 10월 3일까지 7일간 운행하는 열차를 예매할 수 있다.
+
+                    승차권 예매는 PC와 모바일을 통해 SRT 추석 명절승차권 예매전용 홈페이지에서 100% 온라인으로 운영된다. 인터넷 사용이 어려운 경로·장애인 고객은 전화로도 예매 가능하다.
+
+                    예매 첫날인 5일은 사전에 명절 우선예매접수 등록을 완료한 만 65세 이상 고령자나 장애인복지법상 등록 장애인만 예매할 수 있다. 등록을 하지 못한 경우 전화접수를 통해 예매할 수 있다.
+
+                    둘째 날부터는 전국민이 예매 가능하다. 6일은 경부·경전·동해선을, 7일은 호남·전라선 승차권을 예매 할 수 있다.
+
+                    예매한 승차권은 10일 자정까지 결제하지 않으면 자동으로 취소되며 예약 대기 신청자에게 배정된다. 판매되지 않은 잔여석은 7일 오후 3시부터 홈페이지, SRT앱, 역 창구 등에서 일반승차권과 동일하게 구입 가능하다.
+
+                    이종국 에스알 대표이사는 “추석 명절 연휴기간 귀성을 준비하는 모든 국민이 안전하고 편리하게 SRT로 이동할 수 있도록 철저한 준비를 통해 명절예매를 운영하겠다”라고 전했다.
+
+                    <br><br> 출처 : 투데이신문(https://www.ntoday.co.kr)
+                    </p>
+                </div>
+            </div>
+            
+            <div id="section_container">
+                <div class="info_section" id="section2">지난 정보</div>
+            </div>
+            <div class="other_posts">
+                <div class="post_grid">
+                    <div class="post_item"><a href="#">[대구시, 내년도 노인일자리 참여자 25% 확대 모집]</a></div>
+                    <div class="post_item"><a href="#">[2023 전국노인 스포츠클럽 한궁대회]</a></div>
+                    <div class="post_item"><a href="#">[2023년 파크골프 전국대회 개인별 성적 순위 발표]</a></div>
+                    <!-- Add more items as needed -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2023 시니어 정보 제공 페이지</p>
+    </footer>
+</body>
+</html>

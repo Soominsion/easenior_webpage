@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 주변 병원</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #map {
+            overflow: hidden;
+            width: 100%;
+            height: 400px;
+        }
+
+        #places {
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .place {
+            width: 30%;
+            margin: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .navbar {
+            background-color: #f1f1f1;
+            padding: 30px 0px;
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: space-evenly;
+            position: relative;
+            border-top: 5px solid orange;
+            border-bottom: 1.5px solid orange;
+        }
+
+        .menu {
+            list-style-type: none;
+            overflow: hidden;         
+            justify-content: space-evenly;
+            width: 100%;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu li {
+            flex: 1;
+        }
+
+        .menu a {
+            display: block;
+            color: #181818;
+            font-size: 30px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            padding: 15px; /* 각 메뉴 항목의 패딩을 조절 */
+        }
+
+        .menu a:hover {
+            background-color: #ddd;
+            color: orange;
+        }
+
+        .submenu-container {
+            display: inline-block;
+        }
+
+        .submenu-content {
+            display: none;
+            position: absolute;
+            width: 17.5%;
+            background-color: #f9f9f9;
+            z-index: 1;
+        }
+        .submenu-content a{
+            color: #333;
+            font-weight: 400;
+        }
+        
+        .submenu-container:hover .submenu-content {
+            display: block;
+        }
+        
+        .space{
+            width:15vw;
+            background-color: #f1f1f1;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <ul class="menu">
+            <a href="main.html"><image src="assets\logo.png" width="200px"></image></a> 
+            <li class="submenu-container"><a href="#">알림 마당</a>
+                <div class="submenu-content">
+                    <a href="#">오늘의 정보</a>
+                    <a href="#">일자리 정보</a>
+                    <a href="#">새로운 취미</a>
+                </div>
+            </li>
+
+            <li class="submenu-container"><a href="#">의료 시설</a>
+                <div class="submenu-content">
+                    <a href="medical.html">주변 의료시설</a>
+                    <a href="#">치매 예방법</a>
+                    <a href="#">자가 진단</a>
+                </div>
+            </li>
+            
+            <li class="submenu-container"><a href="#">온라인 예매</a>
+                <div class="submenu-content">
+                    <a href="#">기차표 예약</a>
+                    <a href="#">음식점 예약</a>
+                    <a href="#">스포츠 예약</a>
+                    <a href="#">콘서트 예약</a>
+                </div>
+            </li>
+            <li class="submenu-container"><a href="#">동네 소식</a>
+                <div class="submenu-content">
+                    <a href="#">중고나라</a>
+                    <a href="#">재능기부</a>
+                </div>
+            </li>
+            <div class="space"></div>
+        </ul>
+    </div>
+    
+
+    <div id="map"></div>
+
+    <div id="places"></div>
+
+    <footer>
+        <p>&copy; 2023 시니어 정보 제공 페이지</p>
+    </footer>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb2m7T18zFaUHX2JdcSR5FEod-P1Z2Rl4&libraries=places&callback=initMap">
+    </script>
+
+    <script>
+        var map;
+
+        function initMap() {
+            // 지도 초기화
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13 // 초기 줌 레벨
+            }); 
+
+            // 사용자의 현재 위치 가져오기
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var userLatLng = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    map.setCenter(userLatLng);
+
+                    // 주변 병원시설 검색
+                    var service = new google.maps.places.PlacesService(map);
+                    service.nearbySearch({
+                        location: userLatLng, // 사용자의 현재 위치를 검색 중심으로 설정
+                        radius: 1000, // 검색 반경 (미터)
+                        type: 'hospital' 
+                    }, callback);
+                });
+            }
+        }
+
+        function callback(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    createMarker(results[i]);
+                    createPlaceCard(results[i]);
+                }
+            }
+        }
+
+        function createMarker(place) {
+            var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location,
+                title: place.name
+            });
+        }
+
+        function createPlaceCard(place) {
+            var placesContainer = document.getElementById('places');
+
+            var placeCard = document.createElement('div');
+            placeCard.className = 'place';
+            placeCard.innerHTML = '<h3>' + place.name + '</h3><p>' + place.vicinity + '</p>';
+
+            placesContainer.appendChild(placeCard);
+        }
+    </script>
+
+</body>
+</html>
